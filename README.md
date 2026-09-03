@@ -13,4 +13,5 @@ I'''m repositioning into **Marketing Ops / RevOps / GTM Engineering** — and bu
 
 **[The Afterschool Club](https://afterschool-club.vercel.app)** — a Duolingo-style English reading practice app for Israeli elementary school kids. Hebrew UI, English words, in-browser speech recognition (no server, no API cost) so kids get instant pronunciation feedback from an animated mascot. Built end-to-end (React, Supabase, on-device Whisper via Transformers.js) and now in real use. Source is private — it'''s whitelabeled for a live teaching business.
 
-![The Afterschool Club](assets/afterschool-club.png)
+<img width="471" height="420" alt="image" src="https://github.com/user-attachments/assets/6692da5a-84cc-4573-8e02-2cdb7ee2fae7" />
+
