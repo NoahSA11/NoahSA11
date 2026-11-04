@@ -1,7 +1,0 @@
-node_modules/
-dist/
-.cache/
-public/content/
-test-results/
-*.log
-.DS_Store
