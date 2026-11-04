@@ -19,3 +19,7 @@ I'm repositioning into **Marketing Ops / RevOps / GTM Engineering** — and buil
 
 <img width="300" alt="Shvil path map" src="https://raw.githubusercontent.com/NoahSA11/shvil/main/docs/path-map.png" />
 
+**[Gridiron Sunday](https://noahsa11.github.io/Gridiron-Sunday/)** — a 3D broadcast-style American football game that runs in the browser on phones and computers, with current rosters for all 32 NFL teams (rebuilt daily by GitHub Actions). Quick Game or a 6-week Season with playoffs, 17 offensive plays and 14 defenses, hot routes and audibles, plus touch, keyboard and gamepad controls. Three.js, plain JavaScript, no build step. [Source](https://github.com/NoahSA11/Gridiron-Sunday)
+
+<img width="471" alt="Gridiron Sunday pre-snap view with receiver routes" src="assets/gridiron-sunday.png" />
+
