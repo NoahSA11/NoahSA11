@@ -15,3 +15,7 @@ I'm repositioning into **Marketing Ops / RevOps / GTM Engineering** — and buil
 
 <img width="471" height="420" alt="image" src="https://github.com/user-attachments/assets/6692da5a-84cc-4573-8e02-2cdb7ee2fae7" />
 
+**[Shvil · שביל](https://noahsa11.github.io/shvil/)** — a Duolingo-style game for learning the Chumash (Five Books of Moses) and Rashi, Hebrew-first with an English toggle. Every pasuk, translation and Rashi comes from Sefaria data snapshotted at build time, and every generated question is audited against that data in CI. Works fully offline as a PWA, no accounts or tracking. Vanilla TypeScript + Vite. [Source](https://github.com/NoahSA11/shvil)
+
+<img width="300" alt="Shvil path map" src="https://raw.githubusercontent.com/NoahSA11/shvil/main/docs/path-map.png" />
+
