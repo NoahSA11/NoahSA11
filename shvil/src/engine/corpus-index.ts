@@ -40,7 +40,7 @@ export function heAt(ix: CorpusIndex, r: Ref): string | undefined {
 
 /**
  * A verse is "distinctive" (good for "Where is this from?") if it has at least
- * 6 words, its text is unique in the corpus, and fewer than a third of its
+ * 6 words, its text is unique in the corpus, and fewer than half of its
  * 3-word sequences occur in any other verse (this excludes repeated formulas
  * such as "וַיְדַבֵּר יְהוָה אֶל־מֹשֶׁה לֵּאמֹר").
  */
@@ -50,7 +50,7 @@ export function isDistinctive(ix: CorpusIndex, he: string): boolean {
   const sh = shingles(he);
   if (sh.length === 0) return false;
   const shared = sh.filter((s) => (ix.shingleCounts.get(s) ?? 0) > 1).length;
-  return shared / sh.length < 1 / 3;
+  return shared / sh.length < 0.5;
 }
 
 export { allRefs };

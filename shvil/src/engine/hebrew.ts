@@ -4,10 +4,10 @@
  */
 
 /** Cantillation marks (te'amim) U+0591–U+05AF. */
-const TEAMIM = /[֑-֯]/g;
+const TEAMIM = /[\u0591-\u05AF\u05BD]/g; // te'amim incl. meteg (05BD)
 /** Niqqud and other points U+05B0–U+05C7 except maqaf (05BE), paseq (05C0), sof pasuq (05C3), nun hafukha (05C6). */
-const NIKUD = /[ְ-ׇֽֿׁׂׅׄ]/g;
-const PASEQ = /\s*׀/g;
+const NIKUD = /[\u05B0-\u05BC\u05BF\u05C1\u05C2\u05C4\u05C5\u05C7]/g;
+const PASEQ = /\s*\u05C0/g;
 
 export const stripCantillation = (s: string): string => s.replace(TEAMIM, '').replace(PASEQ, '');
 export const stripNikud = (s: string): string => stripCantillation(s).replace(NIKUD, '');
@@ -17,8 +17,8 @@ export const consonants = (s: string): string => s.replace(/[^א-ת]/g, '');
 /** Comparison form of a word or phrase: consonants + nikud, no te'amim, no punctuation. */
 export const normalize = (s: string): string =>
   stripCantillation(s)
-    .replace(/[־]/g, ' ') // maqaf as a separator
-    .replace(/[^ְ-ׇֽֿׁׂׅׄא-ת ]/g, '')
+    .replace(/[\u05BE]/g, ' ') // maqaf as a separator
+    .replace(/[^\u05B0-\u05BC\u05BF\u05C1\u05C2\u05C4\u05C5\u05C7א-ת ]/g, '')
     .replace(/\s+/g, ' ')
     .trim();
 
@@ -26,7 +26,7 @@ export type TokenKind = 'word' | 'ketiv' | 'qere' | 'marker' | 'paseq';
 export interface Token { text: string; kind: TokenKind }
 
 const isMarker = (t: string) => /^\((?:פ|ס)\)$/.test(t) || /^\{(?:פ|ס)\}$/.test(t);
-const hasPoints = (t: string) => /[ְ-ׇּׁׂ]/.test(t);
+const hasPoints = (t: string) => /[\u05B0-\u05BC\u05C1\u05C2\u05C7]/.test(t);
 
 /**
  * Split a pasuk (as stored in the WLC-based Sefaria version) into tokens.
@@ -57,7 +57,7 @@ export const readingWords = (verse: string): string[] =>
     .filter((t) => t.kind === 'word' || t.kind === 'qere')
     .map((t) => (t.kind === 'qere' ? t.text.slice(1, -1) : t.text));
 
-const TETRA = /י[֑-ׇ]*ה[֑-ׇ]*ו[֑-ׇ]*ה/;
+const TETRA = /י[\u0591-\u05C7]*ה[\u0591-\u05C7]*ו[\u0591-\u05C7]*ה/;
 /** True if a token contains the Tetragrammaton. */
 export const hasTetragrammaton = (w: string): boolean => TETRA.test(w);
 /** True if the token is a form of the divine name Elohim (אלהים, אלהיך…). */
@@ -71,17 +71,17 @@ export const isDivineName = (w: string): boolean => hasTetragrammaton(w) || isEl
  */
 export function substituteDivineNames(text: string): string {
   return text
-    .split(/(\s+|־)/)
+    .split(/(\s+|\u05BE)/)
     .map((w) => {
       if (hasTetragrammaton(w)) {
         const idx = w.search(TETRA);
         // Keep trailing sof pasuq / punctuation after the name.
-        const tail = (w.slice(idx).match(/[׃:,.;]+$/) ?? [''])[0];
+        const tail = (w.slice(idx).match(/[\u05C3:,.;]+$/) ?? [''])[0];
         return w.slice(0, idx) + 'ה׳' + tail;
       }
       if (isElohim(w)) {
         // replace the first ה after א-ל with ק
-        return w.replace(/(א[֑-ׇ]*ל[֑-ׇ]*)ה/, '$1ק');
+        return w.replace(/(א[\u0591-\u05C7]*ל[\u0591-\u05C7]*)ה/, '$1ק');
       }
       return w;
     })
